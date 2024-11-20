@@ -1,0 +1,1 @@
+show autovacuum_freeze_max_age;

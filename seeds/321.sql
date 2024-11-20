@@ -1,0 +1,1 @@
+SHOW WORK_MEM;

@@ -1,0 +1,1 @@
+SELECT (FALSE = FALSE) = TRUE;

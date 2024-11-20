@@ -1,0 +1,1 @@
+select 'ALEX DARGAY' >  'ALEXANDER';

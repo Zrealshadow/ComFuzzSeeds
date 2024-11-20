@@ -1,0 +1,4 @@
+WITH x AS (VALUES (1))
+SELECT * FROM x
+ORDER BY unnest(NULL :: INT [])
+;

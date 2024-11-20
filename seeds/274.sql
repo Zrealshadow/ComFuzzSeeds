@@ -1,0 +1,1 @@
+select position ('' in 'A')

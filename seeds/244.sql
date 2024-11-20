@@ -1,0 +1,11 @@
+set extra_float_digits to 1;
+select extract(epoch from timestamp '1920-10-24 12:11:13.975227');
+select to_timestamp(-1552218526.024773) at time zone 'UTC';
+select extract(epoch from timestamp '2019-03-10 11:48:46.024773');
+select to_timestamp(1552218526.024773) at time zone 'UTC';
+set extra_float_digits to 0;
+select to_timestamp(-1552218526.024773) at time zone 'UTC' = timestamp '1920-10-24 12:11:13.975227';
+select extract(epoch from timestamp '1853-08-15 10:04:15.35064');
+select to_timestamp(-3672568544.64936) at time zone 'UTC';
+select extract(epoch from timestamp '2086-05-18 13:55:44.64936');
+select to_timestamp(3672568544.64936) at time zone 'UTC';

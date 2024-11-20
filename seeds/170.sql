@@ -1,0 +1,2 @@
+select TRIM(LEADING 'EXCLUDE' FROM 'C001');
+select TRIM(LEADING 'exclude' FROM 'C001');

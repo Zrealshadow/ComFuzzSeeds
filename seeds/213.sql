@@ -1,0 +1,12 @@
+SHOW SERVER_ENCODING;
+SHOW CLIENT_ENCODING;
+SELECT upper('a') = upper('a');
+SELECT upper('A') = upper('a');
+SELECT upper('a') = upper('A');
+SELECT upper('A') = upper('A');
+SELECT upper('š') = upper('š');
+SELECT upper('Š') = upper('š');
+SELECT upper('š') = upper('Š');
+SELECT upper('Š') = upper('Š');
+SELECT upper('š') = 'Š';
+SELECT 'šđčćžŠĐČĆŽ', upper('šđčćžŠĐČĆŽ'), lower('šđčćžŠĐČĆŽ');

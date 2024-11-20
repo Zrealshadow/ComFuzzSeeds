@@ -1,0 +1,11 @@
+select version();
+select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where conrelid::int + 0 = 50621;
+explain select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where conrelid::int + 0 = 50621;
+select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where conrelid = 50621;
+explain select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where conrelid = 50621;
+select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where oid in (301952, 300466);
+explain select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where oid in (301952, 300466);
+set enable_bitmapscan = off;
+set enable_indexscan = off;
+select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where oid in (301952, 300466);
+explain select oid,ctid,xmin,xmax,conrelid,contype from pg_constraint where oid in (301952, 300466);

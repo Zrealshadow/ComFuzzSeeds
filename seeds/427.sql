@@ -1,0 +1,1 @@
+select ctid, attrelid, attname,attnum from pg_attribute where attrelid in ('pg_class_oid_index'::regclass, 'pg_attribute_relid_attnum_index'::regclass, 'pg_index_indexrelid_index'::regclass, 'pg_opclass_oid_index'::regclass, 'pg_amproc_fam_proc_index'::regclass, 'pg_rewrite_rel_rulename_index'::regclass, 'pg_trigger_tgrelid_tgname_index'::regclass);

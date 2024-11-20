@@ -1,0 +1,2 @@
+SELECT (1, NULL::INT) = (1, NULL::INT), A = B
+FROM (SELECT (1, NULL::INT) A, (1, NULL::INT) B) T;

@@ -1,0 +1,2 @@
+SELECT JSON_OBJECTAGG(i: (i)::text FORMAT JSON WITH UNIQUE)
+ FROM generate_series(1, 100000) i;
