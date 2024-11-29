@@ -2,7 +2,10 @@
 
 >This project is about extracting the SQL snippets from Postgres Bug Emailing list as fuzzing seeds to improve the mutation-based-fuzzing process..
 
+### Result
+the classified fuzzing seeds are stored in the directory `classified_seeds`.
 
+the auto-extracted fuzzing seeds are stored in the directory `seeds`.
 
 ### Usage
 
@@ -98,3 +101,5 @@ the `standard` category contains *59* SQL snippets, the `timestamp_related` cate
 
 **Step 11: Fuzzing Testing**
 Using Fuzzing tools like `Squrrial` to utilize these SQL snippets as seeds to test the Postgres database.
+
+
