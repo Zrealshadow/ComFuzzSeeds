@@ -107,5 +107,12 @@ Any Fuzzing research can directly get the SQL snippets from `classified_seeds` d
 > For the whole technique report, please refer to [ComFuzzSeeds: An In-Depth Investigation of SQL Snippets From Communities for Mutation-Based-Fuzzing](./report/report.pdf).
 
 
+<<<<<<< HEAD
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+=======
+**Step 11: Fuzzing Testing**
+Using Fuzzing tools like `Squrrial` to utilize these SQL snippets as seeds to test the Postgres database.
+
+
+>>>>>>> 839d02bb2ebe4e21f4895dcd9b62d2676c6bebca
