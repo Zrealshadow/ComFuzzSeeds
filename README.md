@@ -1,24 +1,50 @@
-# ComFuzzSeeds: Community Fuzzing Seeds
+# In-Depth Investigation of SQL Snippets From Communities for Mutation-Based-Fuzzing
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg) ![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg) [![Language: C](https://img.shields.io/badge/Language-C-blue.svg)]() ![Made with ❤️](https://img.shields.io/badge/Made%20with-LLMs-red.svg) [![Build: Make](https://img.shields.io/badge/Build-Make-brightgreen.svg)]() [![Fuzzing Tested](https://img.shields.io/badge/Fuzzing-Tested-green?logo=gnu)]() ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-verified-blue.svg)
+>This project is about extracting the SQL snippets from Postgres Bug Emailing list as fuzzing seeds to improve the mutation-based-fuzzing process. With the assistance of large language model, we mining the useful SQL snippest from the unstructure data.
 
->This project is about extracting the SQL snippets from Postgres Bug Emailing list as fuzzing seeds to improve the mutation-based-fuzzing process..
+
+## Overview
+![overview](figs/overview.png)
+
+## 🔧 Setup
+
+This project uses **Conda** for environment and dependency management. All packages are listed in [`environment.yml`](./environment.yml).
+
+### Setup & Usage
+
+```bash
+# Clone the repository
+git clone https://github.com/Zrealshadow/ComFuzzSeeds.git
+cd ComFuzzSeeds
+
+# Create and activate the environment
+conda env create -f environment.yml
+conda activate fuzz  # replace with name in environment.yml
+```
+
+### Dependencies
+This project requires the following dependencies:
+- Python 3.8+
+- PostgreSQL 15+
+- Required Python packages listed in `environment.yml`
+- Make (for building and running scripts)
 
 
-
-### Usage
+## Usage
 
 This process involves a series of scripts to clean the unstructured data. Details of how to use are shown in follows.
 
-During this process, all temporary and intermediate data are stored in `tmp` directory.
+During this process, all temporary and intermediate data are stored in `tmp` directory
 
 
 
-**Step 1: Download mbox files**
+**<<<1>>>: Download mbox files**
 
 Download the mbox files from [link](https://www.postgresql.org/list/pgsql-bugs/) into the `data` directory.
 
 
 
-**Step 2:  Segment and filter mbox files into mail message** 
+**<<<2>>>:  Segment and filter mbox files into mail message** 
 
 One mbox file contains several emails and we only consider the Question email as our target.
 
@@ -26,20 +52,19 @@ execute the `segement.sh` file, which will filter out the message and title of q
 
 
 
-**Step 3: Rule-based filter mails**
+**<<<3>>>: Rule-based filter mails**
 
 execute `filter.py` file, which checks whether the content of email contains any Postgres grammar keywords via regrex expression. It will removed about {4000} unused emails.
 
 
 
-**Step 4: LLM-based filter mails**
+**<<<4>>>: LLM-based filter mails**
 
 execute `llm_extract.py`, which utilize the large language model to extract the SQL snippets from raw text.
 
-before such operation, you need to create a `key.txt` in workspace and write your Large Language Model Service key in it.
 
 
-**Step 5: syntax check**
+**<<<5>>>: syntax check**
 
 ```sh
 $ make
@@ -50,7 +75,7 @@ execute above commands. the extracted SQL snippets will be checked by Postgres p
 
 
 
-**Step 6: broken SQL snippet fixing**
+**<<<6>>>: broken SQL snippet fixing**
 
 ```sh
 $ python collect_flaw_sqls.py
@@ -62,39 +87,25 @@ execute above commands, the flawed SQL snippets will be fixed by large language 
 
 
 
-**Step 7: Collect cleaned SQL snippet**
+**<<<7>>>: Collect cleaned SQL snippet**
 
 ```sh
 $ python collect_correct_sql.py
 $ python collect_fixed_sqls.py
 ```
 
-after executing above commands, the cleaned SQL snippets will be stored in `correct_sqls.txt` and `fixed_sqls.txt` respectively under `tmp/clean_sqls` directory.
-
-In this step, we have collected *2753* correct sqls and *340* fixed sqls.
-
-**Step 8: Execution Validation**
-In this validation step, we will connect to a empty PostgreSQL database and execute the SQL snippets to check whether they are valid.
-```sh
-$ python execution_filter.py
-```
-for the result, we can check file `execution_filter.ipynb`.
-There are only *505* valid SQL snippets in the *2753* correct sqls and *340* fixed sqls.
 
 
-**Step 9: Manually check and classification**
-In the final step, we need to manually select the SQL snippets as fuzzing seeds and classified them into three categories: `standard`, `timestamp_related`, `postgres_related`.
-- `standard`: the SQL snippets are standard SQL snippets that can be used in almost all databases (some involves `generate_series` function, which is postgres build-in). 
-- `timestamp_related`: the SQL snippets are related to timestamp operations.
-- `postgres_related`: the SQL snippets are postgres specific SQL snippets, it will involve some postgres meta attributes and built-in functions.
+## Results
 
-files under `seeds` directory are the *505* valid SQL snippets.
-files under `manual` directory are the manually selected SQL snippets, only involves index name.
-files under `classified_seeds` directory are the classified SQL snippets.
+![statics](figs/statics.png)
 
-check `classify.ipynb` for the classification process and result.
+The final cleaned SQL snippets are stored in `classified_seeds` directory. The SQL snippets are ready to be used as fuzzing seeds for mutation-based fuzzing. 
 
-the `standard` category contains *59* SQL snippets, the `timestamp_related` category contains *13* SQL snippets, the `postgres_related` category contains *46* SQL snippets.
+Any Fuzzing research can directly get the SQL snippets from `classified_seeds` directory for their fuzzing process.
 
-**Step 11: Fuzzing Testing**
-Using Fuzzing tools like `Squrrial` to utilize these SQL snippets as seeds to test the Postgres database.
+> For the whole technique report, please refer to [ComFuzzSeeds: An In-Depth Investigation of SQL Snippets From Communities for Mutation-Based-Fuzzing](./report/report.pdf).
+
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.

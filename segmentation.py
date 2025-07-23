@@ -46,7 +46,7 @@ parser.add_argument(
     help='Path to save the segmented emails'
 )
 
-
+all_mails = 0
 parser.add_argument(
     '-p', '--print_title',
     action='store_true',
@@ -67,7 +67,8 @@ def get_text(mbox_obj):
     LOGGER.debug(f"Total number of mails: {len(mbox_obj)}")
 
     LOGGER.debug(f"=========== Collect query mails and mail set =============")
-
+    global all_mails 
+    all_mails += len(mbox_obj)
     query_mails = []
     # message_id_map = {}
     # reply_map = defaultdict(list) # key: message_id, value: list of reply message
@@ -195,3 +196,4 @@ if __name__ == '__main__':
                 json.dump(mail_data, f)
 
         LOGGER.info(f"Segmented mails are saved at {out_file}")
+        LOGGER.info(f"Selected {len(mail_data)} mails out of {all_mails}")
