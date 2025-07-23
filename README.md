@@ -94,6 +94,31 @@ $ python collect_correct_sql.py
 $ python collect_fixed_sqls.py
 ```
 
+**<<<8>>>: Execution Validation**
+In this validation step, we will connect to a empty PostgreSQL database and execute the SQL snippets to check whether they are valid.
+```sh
+$ python execution_filter.py
+```
+for the result, we can check file `execution_filter.ipynb`.
+There are only *505* valid SQL snippets in the *2753* correct sqls and *340* fixed sqls.
+
+
+**<<<9>>>: Manually check and classification**
+In the final step, we need to manually select the SQL snippets as fuzzing seeds and classified them into three categories: `standard`, `timestamp_related`, `postgres_related`.
+- `standard`: the SQL snippets are standard SQL snippets that can be used in almost all databases (some involves `generate_series` function, which is postgres build-in). 
+- `timestamp_related`: the SQL snippets are related to timestamp operations.
+- `postgres_related`: the SQL snippets are postgres specific SQL snippets, it will involve some postgres meta attributes and built-in functions.
+
+files under `seeds` directory are the *505* valid SQL snippets.
+files under `manual` directory are the manually selected SQL snippets, only involves index name.
+files under `classified_seeds` directory are the classified SQL snippets.
+
+check `classify.ipynb` for the classification process and result.
+
+the `standard` category contains *59* SQL snippets, the `timestamp_related` category contains *13* SQL snippets, the `postgres_related` category contains *46* SQL snippets.
+
+**<<<10>>>: Fuzzing Testing**
+Using Fuzzing tools like `Squrrial` to utilize these SQL snippets as seeds to test the Postgres database.
 
 
 ## Results
@@ -107,12 +132,7 @@ Any Fuzzing research can directly get the SQL snippets from `classified_seeds` d
 > For the whole technique report, please refer to [ComFuzzSeeds: An In-Depth Investigation of SQL Snippets From Communities for Mutation-Based-Fuzzing](./report/report.pdf).
 
 
-<<<<<<< HEAD
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
-=======
-**Step 11: Fuzzing Testing**
-Using Fuzzing tools like `Squrrial` to utilize these SQL snippets as seeds to test the Postgres database.
 
 
->>>>>>> 839d02bb2ebe4e21f4895dcd9b62d2676c6bebca
