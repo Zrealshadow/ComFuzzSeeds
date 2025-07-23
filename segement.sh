@@ -45,7 +45,7 @@ mkdir -p "$output_dir"
 for sub_dir_path in "$dir_path"/*; do
     if [ -d "$sub_dir_path" ]; then  # Check if it's a directory
         echo "Processing directory: $sub_dir_path"
-        python segmentation.py -d "$sub_dir_path" -o "$output_dir"
+        python segmentation.py -d "$sub_dir_path" -o "$output_dir" 
     else
         echo "Skipping non-directory: $sub_dir_path"
     fi
